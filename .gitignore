@@ -1,3 +1,25 @@
+# python
+*.npy
+*.txt
+*.pickle
+
+*.swp
+
+CodeWeb/
+.PowerFolder
+
+# LaTeX
+build/
+
+# bibTeX
+*.bib.sav
+*.bib.bak
+
+# FEniCs output
+*.vtu
+*.pdf
+*.pvd
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
