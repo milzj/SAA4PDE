@@ -1,7 +1,9 @@
 name: testing SAA4PDE
 
-on: [push]
-
+on:
+  push:
+    branches:
+      - consistency
 jobs:
   build-linux:
     runs-on: ubuntu_latest
