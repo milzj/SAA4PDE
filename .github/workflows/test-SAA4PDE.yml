@@ -3,10 +3,8 @@ name: testing SAA4PDE
 on: [push]
 
 jobs:
-  build-linux:
+  build:
     runs-on: ubuntu_latest
-    strategy:
-      max-parallel: 5
 
     steps:
     - uses: actions/checkout@v3
