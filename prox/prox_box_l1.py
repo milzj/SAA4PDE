@@ -1,5 +1,5 @@
-from .prox_l1 import prox_l1
-from .proj_box import proj_box
+from prox_l1 import prox_l1
+from proj_box import proj_box
 
 def prox_box_l1(v, lb, ub, lam):
 	"""Compute proximal operator for box-constraints and l1-norm.
