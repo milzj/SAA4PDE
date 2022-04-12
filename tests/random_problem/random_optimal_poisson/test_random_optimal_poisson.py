@@ -88,7 +88,7 @@ def test_random_optimal_poisson_convergence_rates():
 	k = 2
 	alpha = 1e-3
 
-	N = 100
+	N = 10
 	np.random.seed(1234)
 	samples = np.exp(np.random.randn(N))
 	gtol = 1e-9
