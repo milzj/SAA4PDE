@@ -7,9 +7,9 @@ class LuxemburgNorm(object):
 	"""Estimate the Luxemburg-2-norm.
 
 	We use the fact that the Luxemburg-2-norm
-	can be obtained by solving a one-dimensional
-	equation (provided that the Luxemburg norm
-	is between zero and infinity).
+	can be obtained by computing the solution to a 
+	one-dimensional equation (provided that the 
+	Luxemburg norm is between zero and infinity).
 
 	The Luxemburg norm is computed using Brent's method.
 
