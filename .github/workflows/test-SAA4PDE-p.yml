@@ -24,4 +24,5 @@ jobs:
 
       - name: Test with pytest
         run: |
+          conda install pytest
           mpirun -np 4 python3 -m pytest tests/random_problem/test_split_samples.py 
