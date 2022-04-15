@@ -2,12 +2,9 @@ name: Testing
 
 on:
   push:
-    branches:
-#      - "*"
-      - [main, consistency, sample_estimates]
+    branches: [main, consistency, sample_estimates]
   pull_request:
-    branchess:
-      - [main, consistency, sample_estimates]
+    branchess: [main, consistency, sample_estimates]
 
 
 jobs:

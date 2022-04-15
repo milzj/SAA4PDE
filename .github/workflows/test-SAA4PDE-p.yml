@@ -2,11 +2,9 @@ name: Testing
 
 on:
   push:
-    branches:
-      - [sample_estimates_devel]
+    branches: [sample_estimates_devel]
   pull_request:
-    branchess:
-      - [sample_estimates_devel]
+    branchess: [sample_estimates_devel]
 
 
 jobs:
