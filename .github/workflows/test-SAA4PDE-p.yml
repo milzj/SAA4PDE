@@ -30,4 +30,4 @@ jobs:
         run: |
           conda install pytest
           mpirun -np 4 python3 -m pytest tests/random_problem/test_split_samples.py
-          mpirun -np 4 python3 -m pytest test/random_problem/random_optimal_poisson_parallel/test_serial_parallel_poisson_problem.py
+          mpirun -np 4 python3 -m pytest tests/random_problem/random_optimal_poisson_parallel/test_serial_parallel_poisson_problem.py
