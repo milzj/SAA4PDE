@@ -5,8 +5,8 @@ from dolfin_adjoint import *
 import moola
 import numpy as np
 
-from random_poisson_problem import RandomPoissonProblem
-from poisson_sampler import PoissonSampler
+from .random_poisson_problem import RandomPoissonProblem
+from .poisson_sampler import PoissonSampler
 from random_problem import LocalReducedSAAFunctional, GlobalReducedSAAFunctional
 from random_problem import RieszMap
 

@@ -4,8 +4,8 @@ from dolfin import *
 from dolfin_adjoint import *
 import numpy as np
 
-from random_poisson_problem import RandomPoissonProblem
-from poisson_sampler import PoissonSampler
+from .random_poisson_problem import RandomPoissonProblem
+from .poisson_sampler import PoissonSampler
 
 
 @pytest.mark.parametrize("sample_index", [0, 12, 24])
