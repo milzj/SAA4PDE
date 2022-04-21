@@ -38,6 +38,9 @@ def test_luxemburg_norm_rademacher():
 	Z[Z >=0.5] = 1.
 	Z[Z < 0.5] = -1.
 
+	# convert to list
+	Z = [Z[i] for i in range(len(Z))]
+
 	luxnorm = LuxemburgNorm()
 
 	exact_luxnorm = np.sqrt(1.0/np.log(2.0))

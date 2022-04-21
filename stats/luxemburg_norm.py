@@ -32,7 +32,7 @@ class LuxemburgNorm(object):
 	def fun(self, tau):
 		"""Zero function."""
 
-		return np.mean(np.exp(self.Z**2/tau**2)) - 2.0
+		return np.mean(np.exp(np.power(self.Z, 2.0)/tau**2)) - 2.0
 
 	def evaluate(self, Z):
 
@@ -41,7 +41,7 @@ class LuxemburgNorm(object):
 
 		self.Z = Z
 
-		x0 = np.sqrt(np.mean(self.Z**2))
+		x0 = np.sqrt(np.mean(np.power(self.Z, 2.0)))
 		x1 = np.max(np.absolute(self.Z))/np.sqrt(np.log(2.))
 
 		if x1 <= self.atol:
