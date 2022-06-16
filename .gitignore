@@ -3,6 +3,9 @@
 
 *.swp
 
+# PDFs
+*.pdf
+
 # LaTeX
 build/
 
