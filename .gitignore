@@ -1,12 +1,7 @@
-# python
-*.npy
-*.txt
-*.pickle
+# backup
+.PowerFolder
 
 *.swp
-
-CodeWeb/
-.PowerFolder
 
 # LaTeX
 build/
@@ -14,11 +9,6 @@ build/
 # bibTeX
 *.bib.sav
 *.bib.bak
-
-# FEniCs output
-*.vtu
-*.pdf
-*.pvd
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
