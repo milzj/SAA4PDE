@@ -7,9 +7,9 @@ class LuxemburgNorm(object):
 	"""Estimate the Luxemburg-2-norm.
 
 	We use the fact that the Luxemburg-2-norm
-	can be obtained by computing the solution to a 
-	one-dimensional equation (provided that the 
-	Luxemburg norm is between zero and infinity).
+	can be obtained by solving a one-dimensional
+	equation (provided that the Luxemburg norm
+	is between zero and infinity).
 
 	The Luxemburg norm is computed using Brent's method.
 
@@ -30,11 +30,12 @@ class LuxemburgNorm(object):
 		self.atol = 1e-14
 
 	def fun(self, tau):
-		"""Zero function."""
+		"""Define root function."""
 
 		return np.mean(np.exp(np.power(self.Z, 2.0)/tau**2)) - 2.0
 
 	def evaluate(self, Z):
+		"""Compute Luxemburg norm using Brent's method."""
 
 		if isinstance(Z, np.ndarray) == False and isinstance(Z, list) == False:
 			raise TypeError('Input Z should be an np.ndarray or a list.')

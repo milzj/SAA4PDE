@@ -14,8 +14,6 @@ def save_dict(outdir, filename, output):
 
 	with open(fname + ".pickle", "wb") as handle:
 		"""
-		Note:
-		-----
 		Using protocol=pickle.HIGHEST_PROTOCOL may cause
 		issues with older Python versions.
 		"""
