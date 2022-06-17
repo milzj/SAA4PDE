@@ -4,6 +4,8 @@
 
 export ...
 
+source data.sh
+
 date=$(date '+%d-%b-%Y-%H-%M-%S')
 for n in $n_vec
 do

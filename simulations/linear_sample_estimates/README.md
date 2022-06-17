@@ -7,7 +7,7 @@ The code provided here is used to produce the numerical illustrations in the man
 The main purpose of the simulations is to verify the empirical convergence of solutions to the discretized sample average approximation (SAA) problem 
 
 $$
-\min_{u_h \in U_{\text{ad},h}} \frac{1}{2N} \sum_{i=1}^N \\|S_h(u_h,\xi^i)-y_{d,h}\\|\_{L^2(D)}^2 ]  + (\alpha/2)\\|u_h\\|\_{L^2(D)}^2 + \beta \\|u_h\\|\_{L^1(D)},
+\min_{u_h \in U_{\text{ad},h}} \frac{1}{2N} \sum_{i=1}^N \\|S_h(u_h,\xi^i)-y_{d,h}\\|\_{L^2(D)}^2 + (\alpha/2)\\|u_h\\|\_{L^2(D)}^2 + \beta \\|u_h\\|\_{L^1(D)},
 $$
 
 towards that of the risk-neutral linear elliptic PDE-constrained optimization problem
