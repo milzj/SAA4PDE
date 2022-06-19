@@ -85,7 +85,7 @@ def semilinear_random_problem(N, n):
 	                                                   'maxiter': 20,
 	                                                   'display': 3,
 	                                                   'ncg_hesstol': 0,
-							   'line_search': 'fixed', "correction_step": False})
+							   'line_search': 'fixed', "restrict": True})
 
 	sol = solver.solve()
 
