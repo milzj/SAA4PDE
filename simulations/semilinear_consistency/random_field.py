@@ -31,7 +31,7 @@ class RandomField(object):
 		self.m = m
 
 		indices = list(itertools.product(range(1,self.m), repeat=2))
-		indices = sorted(indices, key=lambda x:x[0]+x[1])
+		indices = sorted(indices, key=lambda x:x[0]**2+x[1]**2)
 		self.indices = indices[0:self.m]
 
 	def bump_seed(self):
