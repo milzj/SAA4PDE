@@ -68,6 +68,21 @@ class RandomField(object):
 		self.eigenvalues = eigenvalues
 		self.eigenfunctions = eigenfunctions
 
+	def plot_eigenvalues(self, outdir):
+
+		import matplotlib.pyplot as plt
+
+		m = self.m
+		e = self.eigenvalues
+		plt.scatter(range(m), e, s=0.5)
+		plt.xlabel("Index of eigenvalue")
+		plt.ylabel("Eigenvalue")
+		plt.yscale("log")
+
+		plt.tight_layout()
+		plt.savefig(outdir + "log_eigenvalues.pdf")
+
+
 	def mean_field(self):
 
 		V = self.function_space
