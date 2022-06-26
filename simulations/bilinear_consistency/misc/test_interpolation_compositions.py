@@ -22,6 +22,7 @@ def test_interpolation(n, fun, degree_element):
 	fun_str = fun[0]
 	fun_np = fun[1]
 	degree, element = degree_element
+	atol = 1e-15
 
 
 	mesh = fenics.UnitSquareMesh(n,n)
@@ -50,10 +51,10 @@ def test_interpolation(n, fun, degree_element):
 	v.vector()[:] = fun_np(f.vector()[:])
 
 	# Are h and g equal?
-	assert fenics.errornorm(v, g, degree_rise = 0) == 0
-	assert fenics.errornorm(g, v, degree_rise = 0) == 0
-	assert fenics.errornorm(v, h, degree_rise = 0) == 0
-	assert fenics.errornorm(h, v, degree_rise = 0) == 0
+	assert fenics.errornorm(v, g, degree_rise = 0) < atol
+	assert fenics.errornorm(g, v, degree_rise = 0) < atol
+	assert fenics.errornorm(v, h, degree_rise = 0) < atol
+	assert fenics.errornorm(h, v, degree_rise = 0) < atol
 
 	assert fenics.norm(v) > 0.0
 
@@ -66,6 +67,8 @@ def test_projection(n, fun, degree, element):
 
 	fun_str = fun[0]
 	fun_np = fun[1]
+
+	rtol = 1e-15
 
 	mesh = fenics.UnitSquareMesh(n,n)
 	V = fenics.FunctionSpace(mesh, element, degree)
@@ -93,10 +96,10 @@ def test_projection(n, fun, degree, element):
 	v.vector()[:] = fun_np(f.vector()[:])
 
 	# Are h and g equal?
-	assert fenics.errornorm(v, g, degree_rise = 0)/fenics.norm(v) == 0
-	assert fenics.errornorm(g, v, degree_rise = 0)/fenics.norm(v) == 0
-	assert fenics.errornorm(v, h, degree_rise = 0)/fenics.norm(v) == 0
-	assert fenics.errornorm(h, v, degree_rise = 0)/fenics.norm(v) == 0
+	assert fenics.errornorm(v, g, degree_rise = 0)/fenics.norm(v) < rtol
+	assert fenics.errornorm(g, v, degree_rise = 0)/fenics.norm(v) < rtol
+	assert fenics.errornorm(v, h, degree_rise = 0)/fenics.norm(v) < rtol
+	assert fenics.errornorm(h, v, degree_rise = 0)/fenics.norm(v) < rtol
 
 
 
