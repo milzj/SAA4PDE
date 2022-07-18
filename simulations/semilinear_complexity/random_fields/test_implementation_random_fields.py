@@ -4,9 +4,9 @@ import pytest
 import numpy as np
 from dolfin import *
 
-from random_diffusion_coefficient import Kappa, KappaExpr
-from random_righthand_side import RHS, RHSExpr
-from random_control_coefficient import RCC, RCCExpr
+from random_fields import Kappa, KappaExpr
+from random_fields import RHS, RHSExpr
+from random_fields import RCC, RCCExpr
 
 def test_implementation_kappa():
 
