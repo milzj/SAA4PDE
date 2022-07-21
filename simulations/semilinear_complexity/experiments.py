@@ -33,10 +33,10 @@ class Experiments(object):
 
 		self.add_experiment(name, n_vec, N_vec, alpha_vec)
 
-		name = "Dimension_Dependence_small_alpha"
+		name = "Dimension_Dependence_large_alpha"
 
 		n_vec = [2**i for i in range(3, 7+1)]
-		alpha_vec = 1e-5*np.ones(len(n_vec), dtype=np.float64)
+		alpha_vec = 1e-1*np.ones(len(n_vec), dtype=np.float64)
 		N_vec = 256*np.ones(len(n_vec), dtype=np.int64)
 
 		self.add_experiment(name, n_vec, N_vec, alpha_vec)

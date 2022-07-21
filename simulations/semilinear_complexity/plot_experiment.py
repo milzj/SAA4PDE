@@ -19,8 +19,6 @@ def load_experiment(outdir):
 	filename = filename[-1]
 
 	try:
-		print(outdir)
-		print(filename)
 		stats = load_dict(outdir, filename)
 
 	except FileNotFoundError:
@@ -103,12 +101,13 @@ def plot_experiment(outdir, ndrop=0):
 
 		# For n=8, the problems were not solved to high accuracy
 		# (max. number of iterations reached)
+
 		if experiment_name.find("Dimension_Dependence_small_alpha") != -1:
 			delete = (8, 256, 1e-05)
 			for rep in range(1,48+1):
 				stats[rep].pop(delete)
-		else:
-			delete = (8, 256, 0.001)
+		elif experiment_name.find("Dimension_Dependence_large_alpha") != -1:
+			delete = (8, 256, 0.1)
 			for rep in range(1,48+1):
 				stats[rep].pop(delete)
 
@@ -119,7 +118,6 @@ def plot_experiment(outdir, ndrop=0):
 
 
 
-	print(experiment)
 	experiments = experiment[('n_vec', 'N_vec', 'alpha_vec')]
 
 	replications = sorted(stats.keys())
@@ -149,7 +147,6 @@ def plot_experiment(outdir, ndrop=0):
 
 #	x_vec = x_vec[ndelete::]
 #	y_vec = y_vec[ndelete::]
-
 
 	assert len(x_vec) == len(y_vec)
 	if least_squares == "standard":

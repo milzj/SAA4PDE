@@ -1,5 +1,9 @@
 # Sample size estimates for risk-neutral semilinear PDE-constrained optimization
 
+The code provided here was used to produce the numerical illustrations in the manuscript
+
+> J. Milz and M. Ulbrich: Sample Size Estimates for Risk-Neutral Semilinear PDE-Constrained Optimization, preprint, , 2022.
+
 The code was used to perform simulations for the risk-neutral semilinear PDE-constrained optimization problem
 
 $$
@@ -40,6 +44,18 @@ $b$.
 
 The animation can be generated using [plot_random_fields.sh](random_fields/plot_random_fields.sh).
 
+## Nominal and reference solutions
+
+![](output/Nominal_Simulation_n=64_date=01-Jul-2022-13-26-50/01-Jul-2022-13-26-50_nominal_solution_n=64_surface.png)
+![](output/Reference_Simulation_n=64_N=8192_date=04-Jul-2022-22-09-44/04-Jul-2022-22-09-44_reference_solution_mpi_rank=0_N=8192_n=64_surface.png)
+
+For $\alpha = 0.001$, the nominal critical point (left) and reference critical point (right). The nominal critical point is a critical point of 
+
+$$
+\min_{u\in U_{\text{ad}}} (1/2)\\|S(u,\mathbb{E}[\xi])-y_d\\|\_{L^2(D)}^2  + (\alpha/2) \\|u\\|\_{L^2(D)}^2 + \gamma \\|u\\|\_{L^1(D)}.
+$$
+
+The reference critical point is a critical point of an SAA problem computed with a high number of samples (here $2^{13}$).
 
 ## Dependencies
 

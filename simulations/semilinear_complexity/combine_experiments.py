@@ -42,8 +42,8 @@ for rank in range(48):
 
 np.savetxt(outdir  + "/" + filename  + "_filename.txt", np.array([outdir]), fmt = "%s")
 
-outdir_one = "output/Experiments/Dimension_Dependence_small_alpha_14-Jul-2022-16-53-38"
-outdir_two = "output/Experiments/Dimension_Dependence_small_alpha_14-Jul-2022-12-47-13"
+outdir_one = "output/Experiments/Dimension_Dependence_large_alpha_19-Jul-2022-21-23-24"
+outdir_two = "output/Experiments/Dimension_Dependence_large_alpha_19-Jul-2022-21-16-20"
 
 filename_one = outdir_one.split("_")
 filename_one = filename_one[-1]
@@ -52,7 +52,7 @@ filename_two = outdir_two.split("_")
 filename_two = filename_two[-1]
 
 
-filename = "Dimension_Dependence_small_alpha_14-Jul-2022-16-53-38-14-Jul-2022-12-47-13"
+filename = "Dimension_Dependence_large_alpha_19-Jul-2022-21-23-24-19-Jul-2022-21-16-20"
 outdir = "output/Experiments" + "/" + filename
 
 if not os.path.exists(outdir):
@@ -72,9 +72,10 @@ for rank in range(48):
 	print(rank)
 
 	i = rank + 1
-	_stats_one[i][(128, 256, 1e-05)] = _stats_two[i][(128, 256, 1e-05)]
+	_stats_one[i][(128, 256, 0.1)] = _stats_two[i][(128, 256, 0.1)]
 
 	save_dict(outdir, _filename, _stats_one)
 
 
 np.savetxt(outdir  + "/" + filename  + "_filename.txt", np.array([outdir]), fmt = "%s")
+
