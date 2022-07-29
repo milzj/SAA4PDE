@@ -3,13 +3,14 @@ from stats import load_dict, compute_random_errors
 from base import lsqs_label
 import warnings
 import numpy as np
+import itertools
 
 from stats import figure_style
 
 from matplotlib import pyplot as plt
 
 plt.rcParams.update({"legend.frameon": True, "legend.loc": "lower left"})
-
+plt.rcParams.update({"legend.columnspacing": 1.0})
 
 def load_experiment(outdir):
 
@@ -63,16 +64,20 @@ def plot_experiment(outdir, ndrop=0):
 	experiment = load_dict(outdir, experiment_name)
 	experiment = experiment[experiment_name]
 
+	#     The number of columns that the legend has.
+	ncol = 1
+
 	if experiment_name.find("Monte_Carlo_Rate") != -1:
 		x_id = 1 # N_vec
 		xlabel = r"$N$"
 		base = 2
 		lsqs_base = "N"
 		alpha = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][2]
-		empty_label = r"$(\alpha={})$".format(alpha)
+		n = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][0]
+		empty_label = r"($\alpha={}$, $n={}$)".format(alpha,n)
 		set_ylim = False
 		ndelete = 0
-		least_squares = "soft_l1"
+		least_squares = "standard"
 
 	elif experiment_name.find("Regularization_Parameter") != -1:
 		x_id = 2 # "alpha_vec"
@@ -80,7 +85,8 @@ def plot_experiment(outdir, ndrop=0):
 		base = 10
 		lsqs_base = r"\alpha"
 		N = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][1]
-		empty_label = r"($N={}$)".format(N)
+		n = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][0]
+		empty_label = r"($N={}$, $n={}$)".format(N,n)
 		set_ylim = False
 		ndelete = 0
 		least_squares = "standard"
@@ -97,6 +103,7 @@ def plot_experiment(outdir, ndrop=0):
 
 		empty_label = r"($N={}$, $\alpha={}$)".format(N, alpha)
 		set_ylim = True
+		set_ylim = True
 		least_squares = "standard"
 
 		# For n=8, the problems were not solved to high accuracy
@@ -112,6 +119,10 @@ def plot_experiment(outdir, ndrop=0):
 				stats[rep].pop(delete)
 
 		experiment[('n_vec', 'N_vec', 'alpha_vec')].pop(0)
+
+		plt.rcParams.update({"figure.figsize": [5.0, 2.5]})
+
+		ncol = 2
 
 	else:
 		raise ValueError(experiment_name + "unknown.")
@@ -178,17 +189,17 @@ def plot_experiment(outdir, ndrop=0):
 
 	# Plot
 	fig, ax = plt.subplots()
-	fig.set_size_inches(5, 5)
+#	fig.set_size_inches(5, 5)
 	# Plot legend for fixed variable
 	ax.plot([], [], " ", label=empty_label)
 
 	# Plot realizations
 	for e in errors.keys():
 		Y = errors[e]
-		ax.scatter(e[x_id]*np.ones(len(Y)), Y, marker="o", color = "black", s=2, label=r"$\chi(\bar{u}_{N,\alpha})$")
+		ax.scatter(e[x_id]*np.ones(len(Y)), Y, marker="o", color = "black", s=2, label=r"$\widetilde \chi_n(\bar{u}_{N,\alpha,n})$")
 
 	# Plot mean of realizations
-	ax.scatter(x_vec, y_vec, marker="s", color="black", label=r"$\mathbb{E}[\chi(\bar{u}_{N,\alpha})]$")
+	ax.scatter(x_vec, y_vec, marker="s", color="black", label=r"$\widehat{\mathrm{E}}[\widetilde \chi_n(\bar{u}_{N,\alpha,n})]$")
 
 	# Plot least squares fit
 	X = x_vec[ndrop::]
@@ -204,8 +215,12 @@ def plot_experiment(outdir, ndrop=0):
 	## Legend with unique entries
 	_handles, _labels = plt.gca().get_legend_handles_labels()
 	by_label = dict(zip(_labels, _handles))
-	plt.legend(by_label.values(), by_label.keys())
-
+	plt.legend(by_label.values(), by_label.keys(), ncol=ncol)
+#	handles, labels = ax.get_legend_handles_labels()
+#	_, idx = np.unique(labels, return_index=True)
+#	handles = [handles[i] for i in idx]
+#	labels = [labels[i] for i in idx]
+#	plt.legend(handles, labels, ncol=2)
 
 	if experiment_name.find("Synthetic") != -1:
 
@@ -219,8 +234,8 @@ def plot_experiment(outdir, ndrop=0):
 		for e in errors.keys():
 	                Y.append(errors[e])
 
-		ymin = np.min(Y)/8
-		ymax = 3*np.max(Y)
+		ymin = np.min(Y)/10
+		ymax = 1.5*np.max(Y)
 
 		ax.set_ylim([ymin, ymax])
 
