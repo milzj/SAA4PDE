@@ -8,7 +8,7 @@ sys.path.insert(0, str(here.parent) + "/algorithms")
 sys.path.insert(0, str(here.parent) + "/base")
 sys.path.insert(0, str(here.parent) + "/stats")
 sys.path.insert(0, str(here.parent) + "/random_problem")
-sys.path.insert(0, str(here.parent) + "/simulations")
+
 
 import pytest
 import numpy as np

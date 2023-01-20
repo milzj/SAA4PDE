@@ -19,7 +19,7 @@ sys.path.append(parentdir)
 sys.path.append(parentparentdir)
 
 from mknrandom_field import MKNRandomField
-from avg_mknrandom_field import avg_mknrandom_field
+from .avg_mknrandom_field import avg_mknrandom_field
 
 import os
 outdir = "output/"
