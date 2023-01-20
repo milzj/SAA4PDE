@@ -3,7 +3,7 @@ import itertools
 from fenics import *
 from dolfin_adjoint import *
 
-from avg_mknrandom_field import avg_mknrandom_field
+from avg_field import avg_mknrandom_field
 
 class AVGMKNRandomField(object):
 
