@@ -87,11 +87,13 @@ zlim_l = -6.
 zlim_u = 6
 ax.set_zlim([zlim_l, zlim_u])
 plt.savefig(outdir + "/" + "surface_solution" +  "_nominal_n={}".format(n) + ".pdf", bbox_inches="tight")
+plt.savefig(outdir + "/" + "surface_solution" +  "_nominal_n={}".format(n) + ".png", bbox_inches="tight")
 plt.close()
 
 p = plot(u_opt)
 plt.colorbar(p)
 plt.savefig(outdir + "/" + "contour_solution" +  "_nominal_n={}".format(n) + ".pdf", bbox_inches="tight")
+plt.savefig(outdir + "/" + "contour_solution" +  "_nominal_n={}".format(n) + ".png", bbox_inches="tight")
 plt.close()
 
 file = File(outdir + "/" + "solution" +  "_nominal_n={}".format(n) + ".pvd")
