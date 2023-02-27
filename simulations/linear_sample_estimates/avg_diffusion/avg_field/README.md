@@ -1,5 +1,5 @@
 
-For each $x \in D$, the expectation of the random diffusion coefficient
+For each $x \in [0,1]^2$, the expectation of the random diffusion coefficient
 
 $$
 \kappa(\xi)(x) = 
@@ -13,10 +13,12 @@ can be computed explicity, since $\xi_1, \ldots, \xi_4$ are independent
 $[-1,1]$ uniform random variables. 
 
 The expectation of the random diffusion coefficient is implemented in
-[avg_mknrandom_field.py].
+[.avg_mknrandom_field.py](vg_mknrandom_field.py).
 
 
 The expected value can be computed with the help of
-https://www.wolframalpha.com/input?i=integrate+exp%28+x+sin%28a%29%29%2F2+for+x%3D-1..1
+[WolframAlpha](https://www.wolframalpha.com/input?i=integrate+exp%28+x+sin%28a%29%29%2F2+for+x%3D-1..1)
 and
-https://www.wolframalpha.com/input?i=integrate+exp%28+x+cos%28a%29%29%2F2+for+x%3D-1..1
+[WolframAlpha](https://www.wolframalpha.com/input?i=integrate+exp%28+x+cos%28a%29%29%2F2+for+x%3D-1..1).
+
+
