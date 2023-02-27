@@ -13,7 +13,7 @@ can be computed explicity, since $\xi_1, \ldots, \xi_4$ are independent
 $[-1,1]$ uniform random variables. 
 
 The expectation of the random diffusion coefficient is implemented in
-[.avg_mknrandom_field.py](vg_mknrandom_field.py).
+[avg_mknrandom_field.py](./avg_mknrandom_field.py).
 
 
 The expected value can be computed with the help of
