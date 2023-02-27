@@ -25,7 +25,7 @@ $D = (0,1)^2$ is the computational domain, and
 $U\_{\text{ad}} = \\{ u \in L^2(D) \colon -6 \leq u \leq 6\\}$ is the feasible set. Moreover, each $(u,\xi) \in L^2(D) \times [-1,1]^4$, $S(u,\xi)$ is the solution to the parameterized linear elliptic partial differential equation: find $y \in H_0^1(D)$ such that
 
 $$
-\int_{D} \kappa(x,\xi) \nabla y(x)^T v(x) \text{d} x = \int_{D} u(x) v(x) \text{d} x \quad \text{for all} \quad v \in H_0^1(D).
+\int_{D} \kappa(x,\xi) \nabla y(x)^T \nabla v(x) \text{d} x = \int_{D} u(x) v(x) \text{d} x \quad \text{for all} \quad v \in H_0^1(D).
 $$
 
 Here, the random diffusion coefficient $\kappa : [0,1]^2 \times [-1,1]^4 \to (0,\infty)$ is defined by
