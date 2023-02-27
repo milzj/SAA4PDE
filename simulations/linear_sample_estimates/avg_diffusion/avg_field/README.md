@@ -22,3 +22,11 @@ and
 [WolframAlpha](https://www.wolframalpha.com/input?i=integrate+exp%28+x+cos%28a%29%29%2F2+for+x%3D-1..1).
 
 
+The implementation of [avg_mknrandom_field.py](./avg_mknrandom_field.py).
+can be verified using Monte Carlo sampling. This check/test is implemented in 
+[check_avg_mknrandom_field.py](./check_avg_mknrandom_field.py) and can be executed
+using
+```
+python check_avg_mknrandom_field.py 
+```
+The script performs a MC simulation and estimates the MC convergence rate empirically.

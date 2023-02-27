@@ -4,9 +4,6 @@ diffusion coefficient. The verification uses
 Monte Carlo simulation. The code generates
 a Monte Carlo convergence plots.
 """
-import pytest
-
-
 from dolfin import *
 import matplotlib.pyplot as plt
 import numpy as np
@@ -19,14 +16,12 @@ sys.path.append(parentdir)
 sys.path.append(parentparentdir)
 
 from mknrandom_field import MKNRandomField
-from .avg_mknrandom_field import avg_mknrandom_field
+from avg_mknrandom_field import avg_mknrandom_field
 
 import os
 outdir = "output/"
 if not os.path.exists(outdir):
 	os.makedirs(outdir)
-
-
 
 n = 2*32
 mesh = UnitSquareMesh(n,n)
@@ -50,7 +45,6 @@ def sampling_error(N):
     u.vector()[:] = np.mean(vs, axis=0)-avg_field_vec
 
     return norm(u, norm_type="L2")
-
 
 n_conv = 50
 
