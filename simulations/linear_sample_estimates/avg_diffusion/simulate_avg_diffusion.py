@@ -57,6 +57,7 @@ if not os.path.exists(outdir):
 random_problem = RandomLinearProblem(n, None)
 avg_kappa = AVGMKNRandomField()
 avg_kappa.function_space = random_problem.V
+# Update of diffusion coefficient
 random_problem.kappa = avg_kappa
 
 u = Function(random_problem.control_space)
