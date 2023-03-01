@@ -25,8 +25,9 @@ if __name__ == "__main__":
 
 	n = int(sys.argv[1])
 	N = int(sys.argv[2])
+	var = int(sys.argv[3])
 
-	rf = MKNRandomField(mean=0.0, var=1.0)
+	rf = MKNRandomField(mean=0.0, var=var)
 	# rf = RandomDiffusionCoefficient(mean=0.0, var=1.0)
 	mesh = UnitSquareMesh(n, n)
 	U = FunctionSpace(mesh, "CG", 1)
@@ -42,12 +43,14 @@ if __name__ == "__main__":
 		v = rf.sample(sample=sample)
 		u.interpolate(v)
 
-		plot(u)
+		c = plot(u)
+		plt.colorbar(c)
+		plt.tight_layout()
 		filename = "random_field_sample=" + str(i)
 		figure_name = outdir + filename
 		savefig(figure_name)
 
 		surface_function(u, n)
 		figure_name = outdir + "random_field_surface_sample=" + str(i)
-		plt.title(r"Random diffusion coefficient (sample $i={}$)".format(i))
+		plt.title(r"Random diffusion coefficient (sample $i={}$ and std ${}$)".format(i, var))
 		savefig(figure_name)
