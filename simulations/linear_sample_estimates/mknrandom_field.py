@@ -55,13 +55,12 @@ class MKNRandomField(object):
 		If sample=None, then four uniform random variables
 		are generated and thee seed is increased by one.
 		"""
-
 		xi = sample
 
-		self.g.xi1 = xi[0]
-		self.g.xi2 = xi[1]
-		self.g.xi3 = xi[2]
-		self.g.xi4 = xi[3]
+		self.g.xi1 = self.var*xi[0]
+		self.g.xi2 = self.var*xi[1]
+		self.g.xi3 = self.var*xi[2]
+		self.g.xi4 = self.var*xi[3]
 
 		f = Function(self.function_space)
 		f.interpolate(self.a)
