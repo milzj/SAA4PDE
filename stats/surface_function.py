@@ -6,7 +6,7 @@ from matplotlib.colors import LinearSegmentedColormap
 from dolfin import *
 
 try:
-	from boxfield import *
+	from .boxfield import *
 except ImportError as error:
 	print("boxfield.py is not located in stats/base.")
 	print("boxfield.py is available at https://github.com/hplgit/fenics-tutorial/blob/master/src/vol1/python/boxfield.py")
