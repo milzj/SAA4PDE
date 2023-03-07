@@ -12,6 +12,7 @@ sys.path.append(parentparentdir)
 # random problem and options
 from random_linear_problem import RandomLinearProblem
 from discrete_sampler import DiscreteSampler
+from realizations_sampler import RealizationsSampler
 from solver_options import SolverOptions
 
 # algorithms
@@ -44,6 +45,7 @@ for seed in Seeds:
 
 	sampler = DiscreteSampler()
 	sampler._seed = seed
+#	sampler = RealizationsSampler(grid_points=2)
 
 	filename = _filename.format(i)
 	i += 1
