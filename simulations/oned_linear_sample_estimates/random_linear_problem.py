@@ -31,8 +31,7 @@ class RandomLinearProblem(RandomProblem):
 
 		self.u = Function(U)
 
-		yd_expr = Expression('(0.25 < x[0] && x[0] < 0.75) ? -0.5 : 1.0', \
-			degree=0, domain=mesh, mpi_comm=mesh.mpi_comm())
+		yd_expr = Expression('(0.25 < x[0] && x[0] < 0.75) ? -0.5 : 1.0', degree=0, domain=mesh, mpi_comm=mesh.mpi_comm())
 
 		yd = Function(U)
 		yd.interpolate(yd_expr)
@@ -54,14 +53,9 @@ class RandomLinearProblem(RandomProblem):
 	def state(self, y, v, u, sample):
 
 		kappas = self.kappa.sample(sample=sample)
-		w = TrialFunction(self.V)
 
-		a = kappas*inner(grad(w), grad(v)) * dx
-		L = u * v * dx
-
-		A, b  = assemble_system(a, L, self.bcs)
-		solver = LUSolver(A, "petsc")
-		solver.solve(y.vector(), b)
+		F = (kappas*inner(grad(y), grad(v)) - u*v)*dx
+		solve(F == 0, y, bcs=self.bcs)
 
 	def __call__(self, u, sample):
 
