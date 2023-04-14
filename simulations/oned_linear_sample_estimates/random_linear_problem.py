@@ -39,7 +39,7 @@ class RandomLinearProblem(RandomProblem):
 
 		self.bcs = DirichletBC(self.V, 0.0, "on_boundary")
 
-		kappa = RandomField(mean=0.0, var=1.0)
+		kappa = RandomField(mean=0.0, var=10.0)
 		kappa.function_space = U
 		self.kappa = kappa
 

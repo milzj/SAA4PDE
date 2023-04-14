@@ -6,7 +6,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 import itertools
 
-from figure_style import *
+from stats import figure_style
 plt.rcParams['legend.loc'] = "upper right"
 
 def plot_experiment(stats, outdir, filename, norm_type="L2", error_types=["luxemburg_norm", "mean"], n_drop=0, N_drop=0):
@@ -287,7 +287,7 @@ def plot_experiment(stats, outdir, filename, norm_type="L2", error_types=["luxem
 
 	handles, labels = plt.gca().get_legend_handles_labels()
 	by_label = dict(zip(labels, handles))
-	plt.legend(by_label.values(), by_label.keys(), loc=1)
+	plt.legend(by_label.values(), by_label.keys(), loc="upper right")
 
 	figure_name = outdir + "/" + filename + "_N=nn".format(n)
 	savefig(figure_name)

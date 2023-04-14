@@ -58,6 +58,7 @@ def poisson_mother(n):
 
 	return u_opt
 
+
 def poisson(n):
 	"""We construct a DG0 function using the solution to the Poisson equation."""
 	mesh = UnitSquareMesh(n, n)
@@ -99,26 +100,16 @@ def test_error_computation():
 	u_ref = poisson_mother(n_ref)
 	_plot(u_ref, n_ref)
 
-	n_vec = np.array([2**n for n in range(3, 7)])
-	n_vec = np.array([int(np.ceil(2**(i/2))) for i in range(6, 14)])
-
-	n_vec = []
-	for i in range(8, 144):
-		if np.lcm(i, 144) <= 256:
-			n_vec.append(i)
-
-	n_vec.pop(1)
-	n_vec.pop(3)
-
+	n_vec = [8, 12, 16, 24, 36, 48, 72]
 	n_vec = np.array(n_vec)
 
 
 	error_indicators = [lambda u, uh, n, nh: error_norm(u, uh, n, nh),
+			lambda u, uh, n, nh: errornorm(u, uh, degree_rise = 0, mesh = u.function_space().mesh()),
 			lambda u, uh, n, nh: errornorm(u, uh, degree_rise = 0),
-			lambda u, uh, n, nh: errornorm(uh, u, degree_rise = 0),
-			lambda u, uh, n, nh: errornorm(u, uh, degree_rise = 3)]
+			lambda u, uh, n, nh: errornorm(uh, u, degree_rise = 0)]
 
-	errors  = {"error_norm": [], "errornorm_uuh_degree_rise=0": [], "errornorm_uhu_degree_rise=0": [], "errornorm_degree_rise=3": []}
+	errors  = {"error_norm": [], "errornorm_uuh_degree_rise=0_mesh": [], "errornorm_uuh_degree_rise=0": [], "errornorm_uhu_degree_rise=0": []}
 
 	keys = []
 	for e in errors:

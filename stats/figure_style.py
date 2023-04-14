@@ -5,9 +5,7 @@ from cycler import cycler
 
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes, mark_inset
 
-fontsize = 16.5
-fontsize = 14.5
-fontsize = 12.5
+fontsize = 15
 linewidth = .75
 
 color_styles = 2*['k']

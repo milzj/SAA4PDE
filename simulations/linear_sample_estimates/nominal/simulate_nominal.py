@@ -19,9 +19,9 @@ from reference_sampler import ReferenceSampler
 from stats import save_dict
 from stats.surface_function import surface_function
 from datetime import datetime
-from stats import figure_style
 
 import matplotlib.pyplot as plt
+from stats import figure_style
 
 # algorithms
 from random_problem import LocalReducedSAAFunctional, GlobalReducedSAAFunctional

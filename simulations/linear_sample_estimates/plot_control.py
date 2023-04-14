@@ -32,12 +32,12 @@ def plot_control(filename, zlim=None, lb=None, ub=None, title=None):
 	fig, ax = surface_function(u, n)
 	if zlim != None:
 		ax.set_zlim(zlim)
-		#ax.set_zticks(np.linspace(0, 18, 5))
 	if title != None:
 		plt.title(title)
+
 	savefig(filename + "_surface")
 
 if __name__ == "__main__":
 
 	input_dir = sys.argv[1]
-	plot_control(input_dir)
+	plot_control(input_dir, (-6., 6.))

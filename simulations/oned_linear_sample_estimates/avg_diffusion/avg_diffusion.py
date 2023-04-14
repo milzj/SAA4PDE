@@ -7,7 +7,8 @@ from avg_field import avg_mknrandom_field
 
 class AVGMKNRandomField(object):
 
-    def __init__(self):
+    def __init__(self, var=1.):
+        self.var = var
         return None
 
     @property
@@ -19,8 +20,9 @@ class AVGMKNRandomField(object):
 
         self._function_space = function_space
         mpi_comm = function_space.mesh().mpi_comm()
+        var = self.var
 
-        self.f = avg_mknrandom_field.avg_mknrandom_field(function_space)
+        self.f = avg_mknrandom_field.avg_mknrandom_field(function_space, var=var)
 
     def sample(self, sample=None):
         return self.realization(sample=sample)

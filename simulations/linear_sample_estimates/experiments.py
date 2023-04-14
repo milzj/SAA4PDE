@@ -14,7 +14,7 @@ class Experiments(object):
 
 		name = "N_fixed"
 		n_vec = [8, 12, 16, 24, 36, 48, 72]
-		N_vec = 36**2*np.ones(len(n_vec), dtype=np.int64)
+		N_vec = 16**2*np.ones(len(n_vec), dtype=np.int64)
 
 		self.add_experiment(name, n_vec, N_vec)
 

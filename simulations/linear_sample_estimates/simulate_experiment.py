@@ -141,6 +141,7 @@ class SAAProblems(object):
 		mpi_rank = self.mpi_rank
 
 		u_ref = self.u_ref
+		mesh_ref = u_ref.function_space().mesh()
 		grid_points = int(self.N_ref**(1/4))
 		sampler = DiscreteSampler(grid_points=grid_points)
 
@@ -163,7 +164,7 @@ class SAAProblems(object):
 				assert sampler.seed == seed
 
 				u_opt = self.local_solve(sampler, n, N)
-				errors = compute_fem_errors(u_ref, u_opt, degree_rise = degree_rise)
+				errors = compute_fem_errors(u_ref, u_opt, degree_rise = degree_rise, mesh=mesh_ref)
 
 				E[n][N] = errors
 
