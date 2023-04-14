@@ -23,17 +23,22 @@ outdir = "output/"
 if not os.path.exists(outdir):
 	os.makedirs(outdir)
 
-n = 2*32
+# simulation data
+n = 64 # mesh width
+var = 2.0 # standard deviation
+n_conv = 100 # number of replications per sample
+Ns = [2**n for n in range(4,14)] # samples
+
 mesh = UnitIntervalMesh(n)
 V = FunctionSpace(mesh, "DG", 0)
 
-avg_field_vec = avg_mknrandom_field(V).vector()[:]
+avg_field_vec = avg_mknrandom_field(V,var=var).vector()[:]
 
-rf = RandomField(mean=0.0, var=1.0)
+rf = RandomField(mean=0.0, var=var)
 rf.function_space = V
 u = Function(V)
 
-def sampling_error(N):
+def sampling_error(N, ord=2):
 
     vs = []
     for i in range(N):
@@ -42,15 +47,17 @@ def sampling_error(N):
         v = rf.sample(sample=sample)
         vs.append(v.vector().get_local())
 
-    u.vector()[:] = np.mean(vs, axis=0)-avg_field_vec
+    u_vec = np.mean(vs, axis=0)-avg_field_vec
+    u.vector()[:] = u_vec
 
-    return norm(u, norm_type="L2")
+    if ord == 2:
+        return norm(u, norm_type="L2")
+    elif ord == np.inf:
+        return np.linalg.norm(u_vec, ord=np.inf)
 
-n_conv = 50
 
 errors = {}
 medians = []
-Ns = [2**n for n in range(4,12)]
 
 for N in Ns:
 
@@ -85,6 +92,6 @@ ax.set_yscale("log",base=2)
 
 plt.legend()
 fig.tight_layout()
-fig.savefig(outdir + "mc_errors.png")
+fig.savefig(outdir + "mc_errors_{}.png".format(var))
 
 assert 0.45 < -rate < 0.55
