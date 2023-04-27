@@ -22,7 +22,7 @@ $(u,\xi) \in U\_{\text{ad}} \times \Xi$,
 $y(\xi) = S(u,\xi) \in H_0^1(D)$ solves
 
 $$
-\int_{D} \kappa(x,\xi) \nabla y(x)^T v(x) \text{d} x +  \int_{D} y(x)^3 v(x) \text{d} x = \int_{D} g(x,\xi) u(x) v(x) \text{d}  x + \int_{D} b(x,\xi) v(x) \text{d} x \quad \text{for all} \quad v \in H_0^1(D).
+\int_{D} \kappa(x,\xi) \nabla y(x)^T \nabla v(x) \text{d} x +  \int_{D} y(x)^3 v(x) \text{d} x = \int_{D} g(x,\xi) u(x) v(x) \text{d}  x + \int_{D} b(x,\xi) v(x) \text{d} x \quad \text{for all} \quad v \in H_0^1(D).
 $$
 
 Here, $\kappa(x,\xi) > 0$,
