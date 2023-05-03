@@ -2,7 +2,7 @@
 import moola
 import numpy as np
 from prox import diag_grad_prox_box_l1
-from regularizer import Regularizer
+from .regularizer import Regularizer
 
 class NonsmoothFunctional(object):
 	"""

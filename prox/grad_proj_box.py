@@ -1,5 +1,5 @@
-from prox_l1 import prox_l1
-from proj_box import proj_box
+from .prox_l1 import prox_l1
+from .proj_box import proj_box
 
 import scipy.sparse as sp
 
