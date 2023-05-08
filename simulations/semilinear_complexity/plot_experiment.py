@@ -41,7 +41,7 @@ def load_experiment(outdir):
 
 	return stats
 
-def plot_experiment(outdir, ndrop=0):
+def plot_experiment(outdir, ndrop=0, tikhonov=-1):
 	"""Generate convergence plots.
 
 	Parameters:
@@ -66,6 +66,10 @@ def plot_experiment(outdir, ndrop=0):
 
 	#     The number of columns that the legend has.
 	ncol = 1
+	
+
+	label_realizations = r"$\widetilde \chi_n(\bar{u}_{N,\alpha,n})$"
+	label_mean_realizations = r"$\widehat{\mathrm{E}}[\widetilde \chi_n(\bar{u}_{N,\alpha,n})]$"
 
 	if experiment_name.find("Monte_Carlo_Rate") != -1:
 		x_id = 1 # N_vec
@@ -90,6 +94,32 @@ def plot_experiment(outdir, ndrop=0):
 		set_ylim = False
 		ndelete = 0
 		least_squares = "standard"
+
+	elif experiment_name.find("Tikhonov") != -1:
+		x_id = 2 # "alpha_vec"
+		xlabel = r"$\alpha$"
+		base = 10
+		lsqs_base = r"\alpha"
+		N = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][1]
+		n = experiment[('n_vec', 'N_vec', 'alpha_vec')][0][0]
+		empty_label = r"($N={}$, $n={}$)".format(N,n)
+		set_ylim = False
+		ndelete = 0
+		least_squares = "standard"
+		if tikhonov == 1:
+			label_realizations = r"$\widetilde \Psi_n(\bar{u}_{N,\alpha,n})$"
+			label_mean_realizations = r"$\widehat{\mathrm{E}}[\widetilde \Psi_n(\bar{u}_{N,\alpha,n})]$"
+		if tikhonov == 2:
+			label_realizations = r"$\hat{\Psi}_{N,n}(\bar{u}_{N,\alpha,n})$"
+			label_mean_realizations = r"$\widehat{\mathrm{E}}[\hat{\Psi}_{N,n}(\bar{u}_{N,\alpha,n})]$"
+
+		plt.rcParams.update({"figure.figsize": [5.0, 2.5]})
+		# plt.rcParams.update({"legend.borderpad": 0.1})
+		# https://matplotlib.org/stable/tutorials/introductory/customizing.html#customizing-with-style-sheets
+		plt.rcParams.update({"legend.borderaxespad": 0.1})
+		plt.rcParams.update({"legend.handletextpad": 0.25})
+		plt.rcParams.update({"legend.labelspacing": 0.25})
+
 
 	elif experiment_name.find("Dimension_Dependence") != -1:
 		x_id = 0 # "n_vec"
@@ -141,7 +171,15 @@ def plot_experiment(outdir, ndrop=0):
 
 		for r in replications:
 			s = stats[r][e]
+			if tikhonov == 0:
+				s = s[0]
+			elif tikhonov == 1:
+				s = s[1]
+			elif tikhonov == 2:
+				s = s[2]
+				
 			errors[e].append(s)
+			
 
 
 	# Compute statistics
@@ -156,11 +194,8 @@ def plot_experiment(outdir, ndrop=0):
 	# Compute convergence rates
 	y_vec = [errors_stats[e]["mean"] for e in experiments]
 
-#	x_vec = x_vec[ndelete::]
-#	y_vec = y_vec[ndelete::]
-
 	assert len(x_vec) == len(y_vec)
-	if least_squares == "standard":
+	if least_squares == "standard" and ndrop >= 0:
 		## least squares
 		X = np.ones((len(x_vec[ndrop::]), 2)); X[:, 1] = np.log(x_vec[ndrop::]) # design matrix
 		x, residudals, rank, s = np.linalg.lstsq(X, np.log(y_vec[ndrop::]), rcond=None)
@@ -168,7 +203,7 @@ def plot_experiment(outdir, ndrop=0):
 		rate = x[1]
 		constant = np.exp(x[0])
 
-	elif least_squares == "soft_l1":
+	elif least_squares == "soft_l1" and ndrop >= 0:
 		scale = 1e-4
 		gtol=1e-10
 
@@ -189,22 +224,22 @@ def plot_experiment(outdir, ndrop=0):
 
 	# Plot
 	fig, ax = plt.subplots()
-#	fig.set_size_inches(5, 5)
 	# Plot legend for fixed variable
 	ax.plot([], [], " ", label=empty_label)
 
 	# Plot realizations
 	for e in errors.keys():
 		Y = errors[e]
-		ax.scatter(e[x_id]*np.ones(len(Y)), Y, marker="o", color = "black", s=2, label=r"$\widetilde \chi_n(\bar{u}_{N,\alpha,n})$")
+		ax.scatter(e[x_id]*np.ones(len(Y)), Y, marker="o", color = "black", s=2, label=label_realizations)
 
 	# Plot mean of realizations
-	ax.scatter(x_vec, y_vec, marker="s", color="black", label=r"$\widehat{\mathrm{E}}[\widetilde \chi_n(\bar{u}_{N,\alpha,n})]$")
+	ax.scatter(x_vec, y_vec, marker="s", color="black", label=label_mean_realizations)
 
 	# Plot least squares fit
-	X = x_vec[ndrop::]
-	Y = constant*X**rate
-	ax.plot(X, Y, color="black", linestyle="--", label=lsqs_label(rate=rate, constant=constant, base=lsqs_base))
+	if ndrop >= 0:
+		X = x_vec[ndrop::]
+		Y = constant*X**rate
+		ax.plot(X, Y, color="black", linestyle="--", label=lsqs_label(rate=rate, constant=constant, base=lsqs_base))
 
 
 	# Legend and labels
@@ -215,12 +250,8 @@ def plot_experiment(outdir, ndrop=0):
 	## Legend with unique entries
 	_handles, _labels = plt.gca().get_legend_handles_labels()
 	by_label = dict(zip(_labels, _handles))
-	plt.legend(by_label.values(), by_label.keys(), ncol=ncol)
-#	handles, labels = ax.get_legend_handles_labels()
-#	_, idx = np.unique(labels, return_index=True)
-#	handles = [handles[i] for i in idx]
-#	labels = [labels[i] for i in idx]
-#	plt.legend(handles, labels, ncol=2)
+	plt.legend(by_label.values(), by_label.keys(), ncol=ncol, loc="best")
+
 
 	if experiment_name.find("Synthetic") != -1:
 
@@ -241,7 +272,7 @@ def plot_experiment(outdir, ndrop=0):
 
 
 	plt.tight_layout()
-	plt.savefig(outdir + "/" + outdir.split("/")[-1] + ".pdf")
+	plt.savefig(outdir + "/" + outdir.split("/")[-1] + "_tikhonov_{}".format(tikhonov) + ".pdf")
 	plt.close()
 
 if __name__ == "__main__":
@@ -251,7 +282,9 @@ if __name__ == "__main__":
 	outdir = sys.argv[1]
 	try:
 		ndrop = int(sys.argv[2])
+		tikhonov = int(sys.argv[3])
 	except:
 		ndrop = 0
+		tikhonov = -1
 
-	plot_experiment(outdir, ndrop=ndrop)
+	plot_experiment(outdir, ndrop=ndrop, tikhonov=tikhonov)
