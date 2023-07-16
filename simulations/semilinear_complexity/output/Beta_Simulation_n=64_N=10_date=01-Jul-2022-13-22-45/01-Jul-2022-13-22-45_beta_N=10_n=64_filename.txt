@@ -1,0 +1,1 @@
+Beta_Simulation_n=64_N=10_date=01-Jul-2022-13-22-45/01-Jul-2022-13-22-45_beta_N=10_n=64

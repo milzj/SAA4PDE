@@ -1,0 +1,63 @@
+\documentclass{scrartcl}
+
+\usepackage[hidelinks]{hyperref}
+\usepackage{ifthen}
+\usepackage{amsmath}
+
+
+\newcommand{\prox}[3][]{\mathrm{prox}_{#2}(#3)}
+\newcommand{\norm}[2][2]{\|#2\|_{#1}}
+
+\title{Termination criteria}
+\date{April 15, 2022}
+
+\begin{document}
+
+\maketitle
+
+We relate the ``termination criterion'' 
+$$\norm[U]{\alpha v + F(\prox{\varphi/\alpha}{v})} \leq \varepsilon$$
+to 
+$$\norm[U]{u-\prox{\varphi/\alpha}{-(1/\alpha)F(u)}} \leq \delta,$$
+where $u = \prox{\varphi/\alpha}{v}$.
+More precisely, given the validity of the first estimate, we derive
+an upper bound on $\delta$ such that the second inequality holds true.
+
+The evaluation of the first inequality requires the point $v$. The second one
+can be evaluated using $u = \prox{\varphi/\alpha}{v}$.
+The mapping  $v \mapsto \alpha v+F(\prox{\varphi/\alpha}{v})$ 
+defines a normal map.
+
+
+Let $U$ be a real Hilbert space 
+and let $v \in U$. Moreover let $\varphi : U \to (-\infty,\infty]$ 
+be proper, closed, and convex, let
+$\alpha > 0$, and let $F : U \to U$ be a mapping.
+We define $u = \prox{\varphi/\alpha}{v}$.
+Here $\prox{\varphi/\alpha}{\cdot}$ is the proximity operator of
+the function $\varphi/\alpha$.
+
+Suppose that $\norm[U]{\alpha v + F(\prox{\varphi/\alpha}{v})} \leq \varepsilon$
+for some $\varepsilon \geq 0$. Since $\prox{\varphi/\alpha}{\cdot}$ is
+firmly nonexpansive, we have
+
+
+\begin{align*}
+	\norm[U]{u-\prox{\varphi/\alpha}{-(1/\alpha)F(u)}}
+	& = 
+	\norm[U]{\prox{\varphi/\alpha}{v}-\prox{\varphi/\alpha}{-(1/\alpha)F(u)}}
+	\\
+	& \leq
+	\norm[U]{v+(1/\alpha)F(u)}
+	\\
+	& = (1/\alpha)\norm[U]{\alpha v+ F(u)}
+	\\
+	& = (1/\alpha)\norm[U]{\alpha v+ F(\prox{\varphi/\alpha}{v})}
+	\\
+	& \leq \varepsilon/\alpha.
+\end{align*}
+
+If $\varphi = 0$, then the first estimate is an identity.
+
+
+\end{document}

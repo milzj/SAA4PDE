@@ -1,0 +1,3 @@
+reference distribution = 2*sobol(2**13)-1
+
+samples generated from 2*rand-1

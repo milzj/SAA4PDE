@@ -1,0 +1,1 @@
+{'is_solution': True, 'alpha*criticality_measure': 8.675836884055195e-13, 'grad_norm': 1.207953826399586e-12, 'alpha': 0.001, 'criticality_measure': 8.675836884055194e-10}

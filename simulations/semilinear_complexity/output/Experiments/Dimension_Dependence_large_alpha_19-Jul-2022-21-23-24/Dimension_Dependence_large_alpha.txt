@@ -1,0 +1,1 @@
+{'Dimension_Dependence_large_alpha': {('n_vec', 'N_vec', 'alpha_vec'): [(8, 256, 0.1), (16, 256, 0.1), (32, 256, 0.1), (64, 256, 0.1), (128, 256, 0.1)]}}

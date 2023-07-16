@@ -1,0 +1,1 @@
+{'iteration': 6, 'objective': 0.4789372040537605, 'grad_norm': 3.847789959196903e-13, 'status': 1, 'delta_J': 9.658940314238862e-15, 'norm_correction_step': 3.8060531888651525e-10, 'Dprox_norm': 0.5761155957683319}
