@@ -110,9 +110,15 @@ class SAAProblems(object):
 
 		sol = solver.solve()
 
-		return sol["control"].data
+		# compute gradient
+		obj = nproblem.obj
+		v_moola = sol["control"]
+		obj(v_moola)
+		grad = obj.derivative(v_moola).primal()
 
-	def criticality_measure(self, control_vec, n, Nref, alpha, beta):
+		return sol["control"].data, grad.data
+
+	def criticality_measure(self, control_vec, gradient_vec, n, Nref, alpha, beta):
 		"""Evaluate criticality measure without parallelization."""
 
 		set_working_tape(Tape())
@@ -145,12 +151,33 @@ class SAAProblems(object):
 		grad = obj.derivative(v_moola).primal()
 		grad_vec = grad.data.vector().get_local()
 
-		grad_vec = prox_box_l1(-(1.0/alpha)*grad_vec, lb, ub, beta/alpha)
 
+		criticality_measures = []
+
+		# reference crit measure
+
+		g_vec = prox_box_l1(-(1.0/alpha)*grad_vec, lb, ub, beta/alpha)
 		prox_grad = Function(random_problem.control_space)
-		prox_grad.vector()[:] = grad_vec
+		prox_grad.vector()[:] = g_vec
+		criticality_measures.append(errornorm(u, prox_grad, degree_rise = 0))
 
-		return errornorm(u, prox_grad, degree_rise = 0)
+
+		# reference crit measure with alpha = 0
+
+		g_vec = prox_box_l1(control_vec-grad_vec, lb, ub, beta)
+		prox_grad = Function(random_problem.control_space)
+		prox_grad.vector()[:] = g_vec
+		criticality_measures.append(errornorm(u, prox_grad, degree_rise = 0))
+
+		# crit measure with alpha = 0
+		g_vec = prox_box_l1(control_vec-gradient_vec, lb, ub, beta)
+		prox_grad = Function(random_problem.control_space)
+		prox_grad.vector()[:] = g_vec
+		criticality_measures.append(errornorm(u, prox_grad, degree_rise = 0))
+
+
+		return criticality_measures
+
 
 
 	def simulate_mpi(self):
@@ -181,8 +208,8 @@ class SAAProblems(object):
 					errors = np.random.randn(N)
 					errors = abs(errors.mean())
 				else:
-					u_opt = self.local_solve(sampler, n, N, alpha, beta)
-					errors = self.criticality_measure(u_opt.vector()[:], n, Nref, alpha, beta)
+					u_opt, grad_opt = self.local_solve(sampler, n, N, alpha, beta)
+					errors = self.criticality_measure(u_opt.vector()[:], grad_opt.vector()[:], n, Nref, alpha, beta)
 				E[e] = errors
 
 			LocalStats[r] = E

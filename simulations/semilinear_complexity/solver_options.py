@@ -8,7 +8,7 @@ class SolverOptions(object):
 			"restrict": True,
                         'ncg_hesstol': 0,
 			 'line_search': 'fixed',
-			"correction_step": False}
+			"correction_step": True}
 
 
 	@property

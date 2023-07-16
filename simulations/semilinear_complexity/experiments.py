@@ -25,6 +25,27 @@ class Experiments(object):
 
 		self.add_experiment(name, n_vec, N_vec, alpha_vec)
 
+
+		name = "Tikhonov_n=64_N=256"
+		num=6
+		alpha_vec = np.linspace(-num, 1, num+2)
+		alpha_vec = 10.0**alpha_vec
+
+		n_vec = 64*np.ones(len(alpha_vec), dtype=np.int64)
+		N_vec = 256*np.ones(len(alpha_vec), dtype=np.int64)
+
+		self.add_experiment(name, n_vec, N_vec, alpha_vec)
+
+		name = "Regularization_Parameter_n=32"
+		num=6
+		alpha_vec = np.linspace(-num, 1, num+2)
+		alpha_vec = 10.0**alpha_vec
+
+		n_vec = 32*np.ones(len(alpha_vec), dtype=np.int64)
+		N_vec = 256*np.ones(len(alpha_vec), dtype=np.int64)
+
+		self.add_experiment(name, n_vec, N_vec, alpha_vec)
+
 		name = "Dimension_Dependence"
 
 		n_vec = [2**i for i in range(3, 7+1)]
@@ -32,30 +53,6 @@ class Experiments(object):
 		N_vec = 256*np.ones(len(n_vec), dtype=np.int64)
 
 		self.add_experiment(name, n_vec, N_vec, alpha_vec)
-
-		name = "Dimension_Dependence_large_alpha"
-
-                n_vec = [2**i for i in range(3, 7+1)]
-                alpha_vec = 1e-1*np.ones(len(n_vec), dtype=np.float64)
-                N_vec = 256*np.ones(len(n_vec), dtype=np.int64)
-
-                self.add_experiment(name, n_vec, N_vec, alpha_vec)
-
-                name = "Monte_Carlo_Rate_n_16"
-                N_vec = [2**i for i in range(3, 10+1)]
-
-                n_vec = 16*np.ones(len(N_vec), dtype=np.int64)
-                alpha_vec = 1e-3*np.ones(len(N_vec), dtype=np.float64)
-
-                self.add_experiment(name, n_vec, N_vec, alpha_vec)
-
-                name = "Monte_Carlo_Rate_n_64_alpha_01"
-                N_vec = [2**i for i in range(3, 10+1)]
-
-                n_vec = 64*np.ones(len(N_vec), dtype=np.int64)
-                alpha_vec = 1e-1*np.ones(len(N_vec), dtype=np.float64)
-
-                self.add_experiment(name, n_vec, N_vec, alpha_vec)
 
 
 	def add_experiment(self, name, n_vec, N_vec, alpha_vec):
